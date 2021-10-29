@@ -91,7 +91,7 @@ class _MyNewsState extends State<MyNews> {
               onPressed: (){
                 auth.signOut().whenComplete(()async{
                   SharedPreferences share = await SharedPreferences.getInstance();
-                  share.setString("LoggedIn", "False");
+                  share.setString("LoggedIn", "false");
                   Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MainPage()));
                 });
               },

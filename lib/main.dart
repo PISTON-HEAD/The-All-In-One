@@ -13,7 +13,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   var id = sharedPreferences.get("LoggedIn");
   print(id);
-  runApp(id ==null?MyApp():MyApp2());
+  runApp(id =="true"?MyApp2():MyApp());
 }
 
 class MyApp extends StatelessWidget {
