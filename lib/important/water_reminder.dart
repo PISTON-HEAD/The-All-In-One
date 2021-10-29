@@ -297,13 +297,13 @@ class _water_reminderState extends State<water_reminder> {
                                   title:Row(
                                     children: [
                                       Icon(FontAwesomeIcons.tint,color: Colors.blue,),
-                                      Text("Intake: ${snapshot.data?.docs[index]["Todays Consumption"]}"),
+                                      Text("  Intake: ${snapshot.data?.docs[index]["Todays Consumption"]}"),
                                     ],
                                   ),
                                   subtitle: Row(
                                     children: [
                                       Icon(FontAwesomeIcons.tint,color: Colors.white,),
-                                      Text("${snapshot.data?.docs[index]["Date"].toString().substring(0,11)}"),
+                                      Text("  ${snapshot.data?.docs[index]["Date"].toString().substring(0,11)}"),
                                     ],
                                   ),
                                 ),

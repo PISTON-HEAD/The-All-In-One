@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:new_app/News/webview_news.dart';
 import 'package:new_app/log%20screens/custom_widgets.dart';
+import 'package:new_app/log%20screens/main_file.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'catnews.dart';
 import 'news_model.dart';
 
@@ -63,7 +65,40 @@ class _MyNewsState extends State<MyNews> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: appBarWidget(),
+        appBar: AppBar(
+          iconTheme: IconThemeData( color: Colors. black,),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const[
+              Text("Today's ",style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.w800,
+                color: Colors.black,
+                fontFamily:"Merriweather",
+              ),),
+              Text("News",style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.w900,
+                color: Colors.pink,
+                fontFamily:"Merriweather",
+              ),),
+            ],
+          ),
+          actions: [
+            IconButton(
+              onPressed: (){
+                auth.signOut().whenComplete(()async{
+                  SharedPreferences share = await SharedPreferences.getInstance();
+                  share.setString("LoggedIn", "False");
+                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MainPage()));
+                });
+              },
+              icon: Icon(Icons.account_balance_wallet_outlined),
+            ),
+          ],
+        ),
         body: loader ? Center(
           child: Container(
             height: 50,
