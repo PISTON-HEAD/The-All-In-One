@@ -172,6 +172,7 @@ class _water_reminderState extends State<water_reminder> {
                         Stack(
                           children: [
                             Container(
+                              alignment:Alignment.center,
                               margin: EdgeInsets.symmetric(vertical: 10),
                               child: CircularPercentIndicator(
                                 radius: 240,
@@ -188,17 +189,17 @@ class _water_reminderState extends State<water_reminder> {
                                 //progressColor: const Color.fromARGB(255, 30, 171, 243),
                               ),
                             ),
-                            Positioned(
-                              top: MediaQuery.of(context).size.width / 10,
-                              right: MediaQuery.of(context).size.width / 14,
+                            Container(
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/10),
                               child: const CircleAvatar(
                                 radius: 90,
                                 backgroundColor: Color.fromARGB(255, 214, 242, 253),
                               ),
                             ),
-                            Positioned(
-                              top: MediaQuery.of(context).size.width / 7,
-                              right: MediaQuery.of(context).size.width / 8,
+                            Container(
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width/7),
                               child: Material(
                                 borderRadius: BorderRadius.circular(70),
                                 elevation: 15,
