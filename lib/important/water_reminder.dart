@@ -158,88 +158,90 @@ class _water_reminderState extends State<water_reminder> {
             return  Column(
               children: [
                 Container(
-                  height: MediaQuery.of(context).size.width / 1.25,
-                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width / 1.2,
+                  width: MediaQuery.of(context).size.width/1.0,
                   decoration: const BoxDecoration(
                       color:Colors.black, //Color.fromARGB(255, 5, 10, 48),
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(75),
                           bottomRight: Radius.circular(75))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: CircularPercentIndicator(
-                              radius: 240,
-                              animateFromLastPercent: true,
-                              animation: true,
-                              circularStrokeCap: CircularStrokeCap.round,
-                                linearGradient: LinearGradient(colors: [
-                                  Color.fromARGB(255, 31,175,240),
-                                  Color.fromARGB(255, 169,250,250),
-                                ]),
-                              percent: snapshot.data?.docs == null?currentDivision:snapshot.data?.docs[0]["Division"],
-                              lineWidth: 15,
-                              backgroundColor: Colors.white,
-                              //progressColor: const Color.fromARGB(255, 30, 171, 243),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              child: CircularPercentIndicator(
+                                radius: 240,
+                                animateFromLastPercent: true,
+                                animation: true,
+                                circularStrokeCap: CircularStrokeCap.round,
+                                  linearGradient: LinearGradient(colors: [
+                                    Color.fromARGB(255, 31,175,240),
+                                    Color.fromARGB(255, 169,250,250),
+                                  ]),
+                                percent: snapshot.data?.docs == null?currentDivision:snapshot.data?.docs[0]["Division"],
+                                lineWidth: 15,
+                                backgroundColor: Colors.white,
+                                //progressColor: const Color.fromARGB(255, 30, 171, 243),
+                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: MediaQuery.of(context).size.width / 10,
-                            right: MediaQuery.of(context).size.width / 14,
-                            child: const CircleAvatar(
-                              radius: 90,
-                              backgroundColor: Color.fromARGB(255, 214, 242, 253),
+                            Positioned(
+                              top: MediaQuery.of(context).size.width / 10,
+                              right: MediaQuery.of(context).size.width / 14,
+                              child: const CircleAvatar(
+                                radius: 90,
+                                backgroundColor: Color.fromARGB(255, 214, 242, 253),
+                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: MediaQuery.of(context).size.width / 7,
-                            right: MediaQuery.of(context).size.width / 8,
-                            child: Material(
-                              borderRadius: BorderRadius.circular(70),
-                              elevation: 15,
-                              child: GestureDetector(
-                                onTap: (){
-                                  waterCalculator();
-                                  updater(200);
-                                },
-                                child: const CircleAvatar(
-                                  backgroundColor: Color.fromARGB(
-                                    255,
-                                    30,
-                                    171,
-                                    243,
-                                  ),
-                                  radius: 70,
-                                  child: Text(
-                                    "Drink",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w400),
+                            Positioned(
+                              top: MediaQuery.of(context).size.width / 7,
+                              right: MediaQuery.of(context).size.width / 8,
+                              child: Material(
+                                borderRadius: BorderRadius.circular(70),
+                                elevation: 15,
+                                child: GestureDetector(
+                                  onTap: (){
+                                    waterCalculator();
+                                    updater(200);
+                                  },
+                                  child: const CircleAvatar(
+                                    backgroundColor: Color.fromARGB(
+                                      255,
+                                      30,
+                                      171,
+                                      243,
+                                    ),
+                                    radius: 70,
+                                    child: Text(
+                                      "Drink",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      //Water
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(snapshot.data?.docs == null?"${totalConsumption / maxConsume}":
-                        "${snapshot.data?.docs[0]["Todays Consumption"]} / ${snapshot.data?.docs[0]["Max Consumption"]} ml ",
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Merriweather"),
-                      )
-                    ],
+                          ],
+                        ),
+                        //Water
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(snapshot.data?.docs == null?"${totalConsumption / maxConsume}":
+                          "${snapshot.data?.docs[0]["Todays Consumption"]} / ${snapshot.data?.docs[0]["Max Consumption"]} ml ",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "Merriweather"),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 //water information
@@ -273,13 +275,11 @@ class _water_reminderState extends State<water_reminder> {
                     ],
                   ),
                 ),
-                StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection("Server Info").doc(auth.currentUser?.uid).collection("Daily Status").snapshots(),
-                  builder: (context, snapshot) {
-                    return SingleChildScrollView(
-                      physics: ClampingScrollPhysics(),
-                      dragStartBehavior: DragStartBehavior.start,
-                      child: Container(
+                SingleChildScrollView(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection("Server Info").doc(auth.currentUser?.uid).collection("Daily Status").snapshots(),
+                    builder: (context, snapshot) {
+                      return Container(
                         child: ListView.builder(
                             reverse: true,
                             scrollDirection: Axis.vertical,
@@ -302,16 +302,16 @@ class _water_reminderState extends State<water_reminder> {
                                   ),
                                   subtitle: Row(
                                     children: [
-                                      Icon(FontAwesomeIcons.tint,color: Colors.white,),
+                                      SizedBox(width: 25,height: 7,),
                                       Text("  ${snapshot.data?.docs[index]["Date"].toString().substring(0,11)}"),
                                     ],
                                   ),
                                 ),
                               );
                             }),
-                      ),
-                    );
-                  }
+                      );
+                    }
+                  ),
                 ),
               ],
             );
