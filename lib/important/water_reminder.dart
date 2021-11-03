@@ -71,6 +71,7 @@ class _water_reminderState extends State<water_reminder> {
     });
   }
 
+  var changes="";
   getAllInfo()async{
     FirebaseFirestore.instance.collection("Server Info").doc(auth.currentUser?.uid).collection("Hydro Alert").doc(auth.currentUser?.uid).get().then((value){
       if(value["Counter"] != null){
@@ -83,8 +84,10 @@ class _water_reminderState extends State<water_reminder> {
     }).whenComplete(()async{
       SharedPreferences sp = await SharedPreferences.getInstance();
       var now =  sp.getString("Daily Update");
+      changes = now!;
       if(DateTime.now().toString().substring(8,10 ) != now.toString().substring(8,10 )){
         print("System Updated...");
+        sp.setString("Daily Update", DateTime.now().toString());
         checker();
       }
     });
@@ -111,8 +114,6 @@ class _water_reminderState extends State<water_reminder> {
 
 
    checker()async{
-     SharedPreferences sp = await SharedPreferences.getInstance();
-     var now =  sp.getString("Daily Update");
     FirebaseFirestore.instance.collection("Server Info").doc(auth.currentUser?.uid).collection("Daily Status").doc(DateTime.now().toString().substring(0,16)).set(
         {
           "Todays Consumption":totalConsumption,
@@ -123,7 +124,7 @@ class _water_reminderState extends State<water_reminder> {
           "Total Divisions":totalDivisions,
           "Completion Rate":(totalConsumption/maxConsume * 100).ceil(),
           "Remaining":totalConsumption >= maxConsume?0:maxConsume - totalConsumption,
-          "Date":now,
+          "Date":changes,
           "id":auth.currentUser?.uid,
         }).whenComplete(() => resetAll(),);
 
