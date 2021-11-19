@@ -277,7 +277,7 @@ class _water_reminderState extends State<water_reminder> {
                     ],
                   ),
                 ),
-                SingleChildScrollView(
+                Container(
                   child: StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance.collection("Server Info").doc(auth.currentUser?.uid).collection("Daily Status").snapshots(),
                     builder: (context, snapshot) {
