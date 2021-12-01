@@ -264,7 +264,7 @@ class _water_reminderState extends State<water_reminder> {
                       Column(
                         children: [
                           Text("Completion",style: waterInfoStyle(),),
-                          snapshot.data?.docs != null?Text(snapshot.data?.docs[0]["Todays Consumption"] ==0?"0": "${((snapshot.data?.docs[0]["Todays Consumption"]/snapshot.data?.docs[0]["Max Consumption"])*100).toString().substring(0,2)}%",style: waterInfoStyle(),)
+                          snapshot.data?.docs != null?Text("${(snapshot.data?.docs[0]["Division"]*100).toString().substring(0,3)}%",style: waterInfoStyle(),)
                               :Text("0%"),
                         ],
                       ),

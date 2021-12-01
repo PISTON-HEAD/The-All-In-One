@@ -48,6 +48,25 @@ class _NoteItState extends State<NoteIt> {
                       margin: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
                       child: SingleChildScrollView(
                         child: ListTile(
+                          onLongPress: (){
+                            showDialog(context: context, builder: (context){
+                              return AlertDialog(
+                                title: Text("Delete Note"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("Cancel"),
+                                    onPressed: (){Navigator.of(context).pop();},
+                                  ),
+                                  TextButton(
+                                    child: Text("Delete"),
+                                    onPressed: (){
+                                      snapshot.data?.docs[index].reference.delete().whenComplete(() => Navigator.of(context).pop());
+                                    },
+                                  ),
+                                ],
+                              );
+                            });
+                          },
                           dense: true,
                           title: Text("${snapshot.data?.docs[index]["Title"]}",style: const TextStyle(
                             fontFamily: "ZenTokyoZoo",

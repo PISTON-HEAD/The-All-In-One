@@ -145,7 +145,7 @@ class _MyNewsState extends State<MyNews> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(allCategories[index],
-                                  style: TextStyle(color: Colors.white,
+                                  style: const TextStyle(color: Colors.white,
                                     fontWeight: FontWeight.w900,
                                     letterSpacing: 0.7,
                                   ),),
