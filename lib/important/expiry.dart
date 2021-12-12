@@ -13,7 +13,7 @@ class _WarrantyCheckerState extends State<WarrantyChecker> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Warranty Checker")
+            title: const Text("Warranty Checker"),
         ),
       ),
     );
